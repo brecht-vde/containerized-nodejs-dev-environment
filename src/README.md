@@ -1,0 +1,1 @@
+This is the working directory that will be mapped to the container.

@@ -1,0 +1,22 @@
+version: "3"
+services:
+  nodejs:
+    # preferred node js distro
+    image: node:16-alpine
+    # setting user to node to avoid permission issues with npm/npx commands
+    user: node
+    # basically the entry directory when connecting to the container
+    working_dir: /src
+    environment:
+      # allows you to access endpoints through e.g. http://localhost:3000
+      - HOST=0.0.0.0
+      # ensures file updates are watched when developing an app
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      # to communicate with docker daemon from within the container
+      - /var/run/docker.sock:/var/run/docker.sock
+      # maps the host's 'src' folder to the container's working dir
+      - ../src:/src
+    ports:
+      # published ports
+      - "127.0.0.1:3000:3000"
